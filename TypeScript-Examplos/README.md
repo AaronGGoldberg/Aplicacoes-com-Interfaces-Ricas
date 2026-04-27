@@ -1,33 +1,81 @@
-# TypeScript Example
+# TypeScript-Examplos
 
-[![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)  
-[![Build Status](https://github.com/persapiens-classes/ifrn-ria-example/actions/workflows/node.yml/badge.svg)](https://github.com/persapiens-classes/ifrn-ria-example/actions)
-
-This is the **pedagogical example application** developed for the course:
-
-### [Applications with Rich Interfaces](https://github.com/persapiens-classes/ifrn-ria)
-
-Offered in the **Bachelor of Technology in Analysis and Systems Development (TADS)** at the:
-
-- [Academic Directorate of Information and Technology Management (DIATINF)](https://diatinf.ifrn.edu.br)  
-- [Campus Natal Central (CNAT)](https://portal.ifrn.edu.br/campus/natalcentral)  
-- [Federal Institute of Rio Grande do Norte (IFRN)](https://portal.ifrn.edu.br/)
+Repositório didático para praticar **TypeScript** com foco em:
+- manipulação de arrays;
+- orientação a objetos (interface + classes);
+- testes automatizados com **Vitest**.
 
 ---
 
-## 🧪 About the Project
+## Visão geral do que foi desenvolvido
 
-This repository contains the source code to create unit tests in [typescript](https://www.typescriptlang.org/) using [vitest](https://vitest.dev/).
-
----
-
-## 📚 Related Resources
-
-- 📘 [Course GitHub Repository](https://github.com/persapiens-classes/ifrn-ria)  
-- 🌐 [TADS Course Website (IFRN)](https://sites.google.com/escolar.ifrn.edu.br/diatinf/cursos/superiores/an%C3%A1lise-e-desenvolvimento-de-sistemas?authuser=0)
+O projeto foi evoluído em etapas (seguindo os commits) para sair de um exemplo inicial e chegar a um conjunto de funções utilitárias testadas.
 
 ---
 
-## 📄 License
+### Estrutura principal
 
-This project is licensed under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
+- `src/sum.ts` e `src/sum.test.ts`: exemplo inicial de função simples com teste unitário.
+- `src/arrayFunctions.ts`: funções para operações com arrays e implementação da interface `Payable`.
+- `src/arrayFunctions.test.ts`: suíte de testes cobrindo funções de arrays e comportamento das classes.
+- `package.json`: configuração de dependências e script de teste com `vitest`.
+
+---
+
+## Evolução conforme commits
+
+### 1) feat: Adicionando Pasta de Exemplos do TypeScript para Atividades
+- Criação da base do projeto de exemplos em TypeScript para a disciplina.
+- Definição da estrutura inicial para exercícios e testes.
+
+### 2) fix: correção de erro (falta de biblioteca) nos códigos pendentes
+- Correção de dependências para garantir execução dos códigos e dos testes.
+- Ajuste do ambiente para estabilizar o fluxo de desenvolvimento.
+
+### 3) feat(array): implement array manipulation functions
+- Implementação das funções:
+  - `squareWithFor`
+  - `squareWithForEach`
+  - `joinStrings`
+  - `sortDescending`
+  - `getFirstTwoElements`
+  - `getEvenNumbers`
+- Definição da interface `Payable`.
+- Criação das classes `Product` e `Employee`, cada uma com cálculo próprio via método `calculate()`.
+
+### 4) test(array): add unit tests for array functions
+- Inclusão de testes unitários cobrindo:
+  - operações de arrays;
+  - comportamento da interface via classes concretas (`Product` e `Employee`).
+- Garantia de regressão para validar as funcionalidades implementadas.
+
+---
+
+## Como executar o projeto
+
+### Pré-requisitos
+- Node.js instalado.
+- npm instalado.
+
+### Instalação
+```bash
+npm install
+```
+
+### Executar testes
+```bash
+npm test
+```
+
+---
+
+## Tecnologias utilizadas
+- TypeScript
+- Vitest
+- Node.js
+
+---
+
+## Autor
+
+Projeto acadêmico de Aaron Goldberg.
