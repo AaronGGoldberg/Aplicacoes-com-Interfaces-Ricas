@@ -1,117 +1,170 @@
 <p-toast></p-toast>
 
-<div class="min-h-screen bg-gray-100">
+<div class="min-h-screen bg-slate-50">
 
   <!-- HEADER -->
-  <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
-    <h1 class="text-xl font-semibold text-gray-800">
-      Sistema de Produtos
-    </h1>
+  <header class="bg-white border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-6 py-6 flex justify-between items-center">
 
-    <span class="text-sm text-gray-500">
-      Angular + PrimeNG
-    </span>
+      <div>
+        <h1 class="text-2xl font-semibold text-gray-800">
+          Sistema de Produtos
+        </h1>
+        <p class="text-sm text-gray-500 mt-1">
+          Gerenciamento simples e eficiente
+        </p>
+      </div>
+
+      <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+        Angular + PrimeNG
+      </span>
+
+    </div>
   </header>
 
-  <div class="max-w-6xl mx-auto p-6 space-y-6">
+  <!-- CONTEÚDO -->
+  <div class="max-w-5xl mx-auto px-6 py-10 space-y-10">
 
-    <!-- CARD FORM -->
-    <div class="bg-white rounded-lg shadow p-6">
+    <!-- FORM -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
 
-      <h2 class="text-lg font-semibold text-gray-700 mb-4">
-        {{ editando ? 'Editar Produto' : 'Novo Produto' }}
-      </h2>
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold text-gray-700">
+          {{ editando ? 'Editar Produto' : 'Novo Produto' }}
+        </h2>
+        <p class="text-sm text-gray-500 mt-1">
+          Preencha os dados abaixo
+        </p>
+      </div>
 
-      <div class="grid md:grid-cols-4 gap-4">
+      <div class="grid md:grid-cols-3 gap-6">
 
-        <input type="text"
-          [(ngModel)]="novoProduto.nome"
-          placeholder="Nome do produto"
-          class="border rounded-md p-2 focus:ring-1 focus:ring-blue-500 outline-none">
-
-        <div class="flex items-center border rounded-md px-2">
-          <span class="text-gray-500 mr-1">R$</span>
-          <input type="number"
-            [(ngModel)]="novoProduto.preco"
-            placeholder="0.00"
-            class="p-2 outline-none w-full">
+        <!-- NOME -->
+        <div class="space-y-2">
+          <label class="text-sm text-gray-600">Nome</label>
+          <input
+            pInputText
+            [(ngModel)]="novoProduto.nome"
+            placeholder="Ex: Notebook Dell"
+            class="w-full">
         </div>
 
-        <label class="flex items-center gap-2 text-sm text-gray-600">
-          <input type="checkbox" [(ngModel)]="novoProduto.ativo">
-          Ativo
-        </label>
+        <!-- PREÇO -->
+        <div class="space-y-2">
+          <label class="text-sm text-gray-600">Preço</label>
+          <p-inputnumber
+            [(ngModel)]="novoProduto.preco"
+            mode="currency"
+            currency="BRL"
+            locale="pt-BR"
+            styleClass="w-full"
+            inputStyleClass="w-full">
+          </p-inputnumber>
+        </div>
 
+        <!-- STATUS -->
+        <div class="flex items-end gap-3 pb-1">
+          <p-checkbox [(ngModel)]="novoProduto.ativo" [binary]="true"></p-checkbox>
+          <span class="text-sm text-gray-700">Produto ativo</span>
+        </div>
+
+      </div>
+
+      <div class="mt-8 flex justify-end">
         <p-button
-          [label]="editando ? 'Atualizar' : 'Salvar'"
+          [label]="editando ? 'Atualizar produto' : 'Salvar produto'"
           icon="pi pi-check"
-          [severity]="'primary'"
+          [raised]="true"
+          [severity]="editando ? 'warn' : 'primary'"
           (onClick)="salvar()">
         </p-button>
-
       </div>
 
     </div>
 
-    <!-- CARD TABELA -->
-    <div class="bg-white rounded-lg shadow p-4">
+    <!-- LISTA -->
+    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
 
-      <h2 class="text-lg font-semibold text-gray-700 mb-4">
-        Lista de Produtos
-      </h2>
+      <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-700">
+            Produtos cadastrados
+          </h2>
+          <p class="text-sm text-gray-500 mt-1">
+            {{ produtos.length }} registro(s)
+          </p>
+        </div>
+      </div>
 
-      <p-table [value]="produtos" stripedRows>
+      <p-table
+        [value]="produtos"
+        [stripedRows]="true"
+        [tableStyle]="{ 'min-width': '100%' }">
 
         <ng-template pTemplate="header">
           <tr>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Status</th>
-            <th class="text-center">Ações</th>
+            <th class="text-sm text-gray-500 font-medium">Produto</th>
+            <th class="text-sm text-gray-500 font-medium text-right">Preço</th>
+            <th class="text-sm text-gray-500 font-medium text-center">Status</th>
+            <th class="text-sm text-gray-500 font-medium text-center">Ações</th>
           </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-p>
-          <tr>
+          <tr class="h-16">
 
-            <td class="font-medium text-gray-800">
+            <td class="text-gray-800 font-medium">
               {{ p.nome }}
+              <div class="text-xs text-gray-400 mt-1">ID: {{ p.id }}</div>
             </td>
 
-            <td class="text-gray-700">
+            <td class="text-right text-gray-700">
               R$ {{ p.preco.toFixed(2) }}
             </td>
 
-            <td>
+            <td class="text-center">
               <span
-                class="text-xs px-2 py-1 rounded-md"
-                [ngClass]="p.ativo ? 'bg-gray-200 text-gray-800' : 'bg-gray-300 text-gray-600'">
+                class="text-xs px-3 py-1 rounded-full"
+                [ngClass]="p.ativo ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'">
                 {{ p.ativo ? 'Ativo' : 'Inativo' }}
               </span>
             </td>
 
-            <td class="flex justify-center gap-2">
+            <td>
+              <div class="flex justify-center gap-3">
 
-              <p-button icon="pi pi-pencil"
-                        [severity]="'secondary'"
-                        text
-                        (onClick)="editar(p)">
-              </p-button>
+                <p-button icon="pi pi-pencil"
+                          severity="secondary"
+                          text
+                          rounded
+                          (onClick)="editar(p)">
+                </p-button>
 
-              <p-button icon="pi pi-trash"
-                        [severity]="'danger'"
-                        text
-                        (onClick)="remover(p)">
-              </p-button>
+                <p-button icon="pi pi-trash"
+                          severity="danger"
+                          text
+                          rounded
+                          (onClick)="remover(p)">
+                </p-button>
 
-              <p-button icon="pi pi-eye"
-                        [severity]="'info'"
-                        text
-                        (onClick)="detalhar(p)">
-              </p-button>
+                <p-button icon="pi pi-eye"
+                          severity="info"
+                          text
+                          rounded
+                          (onClick)="detalhar(p)">
+                </p-button>
 
+              </div>
             </td>
 
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="4" class="text-center py-12 text-gray-400">
+              Nenhum produto cadastrado
+            </td>
           </tr>
         </ng-template>
 
@@ -121,31 +174,48 @@
 
     <!-- DETALHES -->
     <div *ngIf="produtoSelecionado"
-         class="bg-white border rounded-lg p-5 shadow">
+         class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
 
-      <div class="flex justify-between items-center mb-3">
-
-        <h3 class="font-semibold text-gray-700">
-          Detalhes do Produto
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-semibold text-gray-700">
+          Detalhes do produto
         </h3>
 
-        <p-button icon="pi pi-times"
-                  text
-                  (onClick)="fecharDetalhes()">
-        </p-button>
-
+        <p-button icon="pi pi-times" text (onClick)="fecharDetalhes()"></p-button>
       </div>
 
-      <div class="grid grid-cols-2 gap-3 text-sm text-gray-700">
+      <div class="grid md:grid-cols-3 gap-6">
 
-        <p><b>Nome:</b> {{ produtoSelecionado.nome }}</p>
-        <p><b>Preço:</b> R$ {{ produtoSelecionado.preco.toFixed(2) }}</p>
-        <p><b>Status:</b> {{ produtoSelecionado.ativo ? 'Ativo' : 'Inativo' }}</p>
+        <div>
+          <p class="text-xs text-gray-500 mb-1">Nome</p>
+          <p class="text-gray-800 font-medium">
+            {{ produtoSelecionado.nome }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500 mb-1">Preço</p>
+          <p class="text-gray-800 font-medium">
+            R$ {{ produtoSelecionado.preco.toFixed(2) }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500 mb-1">Status</p>
+          <p class="text-gray-800 font-medium">
+            {{ produtoSelecionado.ativo ? 'Ativo' : 'Inativo' }}
+          </p>
+        </div>
 
       </div>
 
     </div>
 
   </div>
+
+  <!-- FOOTER -->
+  <footer class="text-center text-xs text-gray-400 pb-6">
+    Sistema acadêmico • PrimeNG UI
+  </footer>
 
 </div>

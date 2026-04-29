@@ -18,14 +18,13 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
 
     providePrimeNG({
-      ripple: true,
-      theme: {
+    theme: {
         preset: Aura,
         options: {
-          darkModeSelector: false
+            darkModeSelector: '.my-app-dark'
         }
-      }
-    }),
+    }
+}),
 
     importProvidersFrom(ButtonModule)
   ]
