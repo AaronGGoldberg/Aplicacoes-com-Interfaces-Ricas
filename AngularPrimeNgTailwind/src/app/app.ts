@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CheckboxModule } from 'primeng/checkbox';
 import { MessageService } from 'primeng/api';
 
 import { Produto } from './models/produto';
@@ -16,7 +19,10 @@ import { Produto } from './models/produto';
     FormsModule,
     CommonModule,
     TableModule,
-    ToastModule
+    ToastModule,
+    InputTextModule,
+    InputNumberModule,
+    CheckboxModule
   ],
   providers: [MessageService],
   templateUrl: './app.html'
